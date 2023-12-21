@@ -32,7 +32,7 @@ export const routes = [
   }
   {
     method: 'DELETE',
-    path: '/users/:',
+    path: '/users/:id',
     handler: (req, res) => {
       return res.end()
     },
