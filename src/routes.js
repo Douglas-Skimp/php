@@ -9,12 +9,18 @@ export const routes = [
     method: 'GET',
     path: buildRoutePath ('/users'),
     handler:(req, res) =>{
-      const users = database.select('users')
+      const { search } = req.query
+
+      const users = database.select('users', search ? {
+        name: search,
+        email: search, 
+      } : null)
       
       return res.end(JSON.stringify(users))
     }
   },
   {
+    // Request body
     method: 'POST',
     path: buildRoutePath ('users'),
     handler:(req, res) =>{
@@ -31,7 +37,7 @@ export const routes = [
       return res.writeHead(201).end()
     }
   },
-  {
+  { 
     method: 'PUT',
     path: buildRoutePath('/users/):id'),
     handler: (req, res) => {
@@ -47,6 +53,7 @@ export const routes = [
     },
   },
   {
+    // Route parameters
     method: 'DELETE',
     path: buildRoutePath('/users/):id'),
     handler: (req, res) => {
